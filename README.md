@@ -1,1 +1,1 @@
-# java_maze_game
+# Maze Generation and Playing (along with Solver)
