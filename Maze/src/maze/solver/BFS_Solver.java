@@ -1,6 +1,5 @@
 package maze.solver;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -28,20 +27,19 @@ public class BFS_Solver {
 	
 	// let Q be a queue
 	private Queue<BFS_SC> queue;
-	private Cell maze[][];
-	private List<BFS_SC> solution;
+	private BFS_SC maze[][];
 	
-	public BFS_Solver(Cell maze[][],Cell starting_cell) {
-		this.maze= maze;
-		initMaze();
+	public BFS_Solver(Cell maze[][]) {
+		initMaze(maze);
 		queue = new LinkedList<>();
-		solution = new LinkedList<>();
 	}
 	
-	private void initMaze() {
-		for (Cell[] row_cells : maze) {
+	private void initMaze(Cell m[][]) {
+		// Creating a new Grid of cell i.e BFS_SC that can hold parent info
+		maze = new BFS_SC[m.length][m[0].length];
+		for (Cell[] row_cells : m) {
 			for (Cell cell : row_cells) {
-				cell.visited = false;
+				maze[cell.xcord][cell.ycord] = new BFS_SC(cell, false);
 			}
 		}
 	}
@@ -50,14 +48,17 @@ public class BFS_Solver {
 		// label start_v as discovered
 		starting_cell.visited = true;
 		// Q.enqueue(start_v)
-		queue.add(new BFS_SC(starting_cell));
+		BFS_SC start_cell = new BFS_SC(starting_cell);
+		start_cell.parent = start_cell;
+		queue.add(start_cell);
 		// while Q is not empty do
 		while(!queue.isEmpty()) {
 			// v := Q.dequeue()
 			BFS_SC cell = queue.remove();
+//			System.out.println(cell.ycord + "," + cell.xcord);
 			// if v is the goal then
 			if(cell.xcord == final_cell.xcord && cell.ycord == final_cell.ycord) {
-				System.out.println("Solved");
+				//System.out.println("Solved");
 				return cell;
 			}
 			// for all edges from v to w in G.adjacentEdges(v) do
@@ -68,7 +69,6 @@ public class BFS_Solver {
 					neighbour.visited = true;
 					// w.parent := v
 					neighbour.parent = cell;
-					solution.add(neighbour);
 					// Q.enqueue(w)
 					queue.add(neighbour);
 				}
@@ -80,28 +80,33 @@ public class BFS_Solver {
 	public List<Cell> getSolution(Cell starting_cell,Cell final_cell) {
 		List<Cell> solution_path = new LinkedList<>();
 		BFS_SC cell = startSolving(starting_cell,final_cell);
+		// Traversing back from final cell to initial cell with help of parent
+		if(cell == null) {
+			return null;
+		}
 		while(cell.parent.xcord != starting_cell.xcord || cell.parent.ycord != starting_cell.ycord) {
 			cell = cell.parent;
 			solution_path.add(cell);
 		}
+//		solution_path .forEach(c -> {System.out.println(c.ycord + "," + c.xcord);});
 		return solution_path;//.forEach(c -> {System.out.println(c.ycord + "," + c.xcord);});
 	}
 	
-	private ArrayList<BFS_SC> getAdjacentEdges(Cell v){
-		ArrayList<BFS_SC> nei = new ArrayList<>();
+	private List<BFS_SC> getAdjacentEdges(Cell v){
+		List<BFS_SC> nei = new LinkedList<>();
 		int x = v.xcord;
 		int y = v.ycord;
 		if(v.LEFT_WALL == false) {
-			nei.add(new BFS_SC(maze[x-1][y]));
+			nei.add(maze[x-1][y]);
 		}
 		if(v.RIGHT_WALL == false) {
-			nei.add(new BFS_SC(maze[x+1][y]));
+			nei.add(maze[x+1][y]);
 		}
 		if(v.UP_WALL == false) {
-			nei.add(new BFS_SC(maze[x][y-1]));
+			nei.add(maze[x][y-1]);
 		}
 		if(v.DOWN_WALL == false) {
-			nei.add(new BFS_SC(maze[x][y+1]));
+			nei.add(maze[x][y+1]);
 		}
 		return nei;
 	}
