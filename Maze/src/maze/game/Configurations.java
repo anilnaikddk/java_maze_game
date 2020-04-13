@@ -1,8 +1,8 @@
-package maze;
+package maze.game;
 
 public class Configurations {
 
-	public final int S = 5;
+	public final int S = 30;
 	public final int H = (600 / S) * S;
 	public final int W = (900 / S) * S;
 	public int pausespeed = 100;

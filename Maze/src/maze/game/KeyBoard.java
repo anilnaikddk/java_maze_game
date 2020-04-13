@@ -1,4 +1,4 @@
-package maze;
+package maze.game;
 
 public class KeyBoard {
 	public static final int LEFT = 37;

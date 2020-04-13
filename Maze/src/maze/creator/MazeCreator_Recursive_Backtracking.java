@@ -1,15 +1,19 @@
-package maze;
+package maze.creator;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MazeCreator {
+import maze.game.Cell;
+import maze.game.Configurations;
+import maze.game.Screen;
+
+public class MazeCreator_Recursive_Backtracking {
 
 	private Cell[][] maze;
 	private Screen screen;
 	private int W, H, S;
 
-	public MazeCreator(Configurations conf) {
+	public MazeCreator_Recursive_Backtracking(Configurations conf) {
 		this.W = conf.W;
 		this.H = conf.H;
 		this.S = conf.S;

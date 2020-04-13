@@ -1,9 +1,11 @@
-package maze;
+package maze.game;
 
 import java.util.Random;
 
 import javax.swing.JFrame;
 //import javax.swing.JOptionPane;
+
+import maze.creator.MazeCreator_Recursive_Backtracking;
 
 public class Main {
 
@@ -29,7 +31,7 @@ public class Main {
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 
-		MazeCreator mz = new MazeCreator(conf);
+		MazeCreator_Recursive_Backtracking mz = new MazeCreator_Recursive_Backtracking(conf);
 		mz.setScreen(s);
 		Cell main_cell = getRandomCell();
 		mz.Traverse(main_cell);
