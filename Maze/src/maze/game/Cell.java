@@ -1,5 +1,6 @@
 package maze.game;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Cell {
@@ -12,6 +13,8 @@ public class Cell {
 	public boolean RIGHT_WALL = true;
 
 	public boolean visited = false;
+	
+	public Color color = null;
 
 	public Cell(int xcord, int ycord) {
 		this.xcord = xcord;
