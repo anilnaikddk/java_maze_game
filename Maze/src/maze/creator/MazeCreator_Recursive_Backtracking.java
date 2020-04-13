@@ -1,5 +1,6 @@
 package maze.creator;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,6 +13,8 @@ public class MazeCreator_Recursive_Backtracking {
 	private Cell[][] maze;
 	private Screen screen;
 	private int W, H, S;
+	private final Color visitedcell_color = Color.lightGray;
+	private final Color visitingcell_color = Color.yellow;
 
 	public MazeCreator_Recursive_Backtracking(Configurations conf) {
 		this.W = conf.W;
@@ -24,19 +27,21 @@ public class MazeCreator_Recursive_Backtracking {
 	public void setScreen(Screen s) {
 		this.screen = s;
 	}
-	
 
 	public void Traverse(Cell current_cell) {
 		makeCellVisited(current_cell);
 		if (current_cell.hasAnyUnvisitedNeighbourCell(maze)) {
 			visitNeighbour(current_cell);
 		}
+		current_cell.color = visitedcell_color;
+		screen.update_screen(maze, current_cell);
 	}
 
 	private void makeCellVisited(Cell cell) {
 		if (screen != null) {
-			screen.setCurrent(cell);
-			screen.update_screen(maze);
+			//screen.setCurrent(cell);
+			cell.color = visitingcell_color;
+			screen.update_screen(maze,cell);
 		}
 		if (maze[cell.xcord][cell.ycord] == null) {
 			maze[cell.xcord][cell.ycord] = cell;
@@ -59,6 +64,8 @@ public class MazeCreator_Recursive_Backtracking {
 			}
 			neighbour = removeWall(current_cell, neighbour);
 			Traverse(neighbour);
+			// screen.setCurrent(current_cell);
+			
 		}
 	}
 
