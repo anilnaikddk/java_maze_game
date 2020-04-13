@@ -53,9 +53,12 @@ public class Player {
 		conf.gameWon();
 //		System.out.println("WIN WIN");
 		conf.increaseScore();
-		Cell fc = getRandomCell(main_cell);
-		screen.setFinalCell(fc);
-		screen.update_screen(Maze);
+		main_cell = getRandomCell();
+		final_cell = getRandomCell(main_cell);
+		//screen.setCurrent(main_cell);
+		screen.setFinalCell(final_cell);
+		screen.update_screen(Maze,main_cell);
+		conf.continueGame();
 	}
 
 	private Cell getRandomCell(Cell main_cell) {
@@ -71,7 +74,8 @@ public class Player {
 		Random rand = new Random();
 		int x = rand.nextInt(conf.W / conf.S);
 		int y = rand.nextInt(conf.H / conf.S);
-		return new Cell(x, y);
+		
+		return Maze[x][y];
 	}
 
 	private boolean hasSingleWay() {
