@@ -62,12 +62,13 @@ public class Screen extends JPanel {
 		}
 	}
 
-	private void writeText(Graphics g) {
+	private void writeScore(Graphics g) {
+		int score = conf.score;
 		g.setFont(new Font("Arial", Font.BOLD, 16));
 		g.setColor(Color.WHITE);
 		g.fillRect(conf.W, 0, conf.padding, 50);
 		g.setColor(Color.BLUE);
-		g.drawString("Score : " + conf.score, conf.W + 10, 30);
+		g.drawString("Score : " + score, conf.W + 10, 30);
 		g.setColor(Color.black);
 		g.drawRect(conf.W, 0, conf.padding, 50);
 	}
@@ -76,14 +77,25 @@ public class Screen extends JPanel {
 		g.setColor(Color.black);
 		g.drawRect(0, 0, conf.W, conf.H);
 	}
+	
+	private void clearScreen(Graphics g) {
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, conf.W, conf.H);
+	}
 
 	@Override
 	public void paint(Graphics g) {
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, conf.W, conf.H);
+		if(cells == null) {
+			return;
+		}
+		//Clear screen every time
+		clearScreen(g);
+		//Draw Outer Line or Border
 		drawOutLine(g);
+		//Draw the current maze
 		drawMaze(g);
-		writeText(g);
+		//Draws the current score
+		writeScore(g);
 	}
 
 	public void update_screen() {
@@ -100,7 +112,7 @@ public class Screen extends JPanel {
 	public void update_screen(Cell cells[][], Cell current) {
 		this.cells = cells;
 		this.current = current;
-		paintImmediately(0, 0, conf.W, conf.H);
+		paintImmediately(0, 0, conf.W + conf.padding, conf.H);
 		pause();
 	}
 
