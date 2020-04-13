@@ -2,9 +2,9 @@ package maze.game;
 
 public class Configurations {
 
-	public final int S = 30;
-	public final int H = (600 / S) * S;
-	public final int W = (900 / S) * S;
+	public final int S = 100;
+	public final int H = (400 / S) * S;
+	public final int W = (400 / S) * S;
 	public int pausespeed = 100;
 
 	public final int padding = 80;
@@ -16,6 +16,8 @@ public class Configurations {
 	public boolean run_game = true;
 	private boolean start_new_game = true;
 	public boolean win_game = false;
+	
+	public boolean show_solution = false;
 	
 	public void mazeIsGenerated() {
 		maze_geneated = true;
@@ -47,5 +49,13 @@ public class Configurations {
 	
 	public void increaseScore() {
 		score++;
+	}
+	
+	public void hideSolution() {
+		show_solution = false;
+	}
+	
+	public void showSolution() {
+		show_solution = true;
 	}
 }
