@@ -23,6 +23,15 @@ public class Controls implements KeyListener {
 		}
 		// PLAYER PLAYS NOW
 		if (conf.isMazeGenerated()) {
+			if (ke.getKeyCode() == KeyBoard.ENTER) {
+//				if (conf.hint > 0)
+				conf.show_solution = !conf.show_solution;
+//				if (conf.show_solution == false)
+//					conf.hint--;
+				if (conf.show_solution)
+					player.showSolution();
+				return;
+			}
 			player.move(ke.getKeyCode());
 		} else {
 			// INCREASE OR DECREASE MAZE GENERATION SPEED
@@ -40,9 +49,11 @@ public class Controls implements KeyListener {
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {}
+	public void keyPressed(KeyEvent arg0) {
+	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {}
+	public void keyTyped(KeyEvent arg0) {
+	}
 
 }
