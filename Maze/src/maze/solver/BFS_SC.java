@@ -14,4 +14,12 @@ public class BFS_SC extends Cell{
 		super.RIGHT_WALL = cell.RIGHT_WALL;
 		super.visited = cell.visited;
 	}
+	public BFS_SC(Cell cell,boolean visited) {
+		super(cell.xcord,cell.ycord);
+		super.UP_WALL = cell.UP_WALL;
+		super.DOWN_WALL = cell.DOWN_WALL;
+		super.LEFT_WALL = cell.LEFT_WALL;
+		super.RIGHT_WALL = cell.RIGHT_WALL;
+		super.visited = visited;
+	}
 }
