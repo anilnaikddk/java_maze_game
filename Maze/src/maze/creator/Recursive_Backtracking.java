@@ -1,6 +1,5 @@
 package maze.creator;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -8,15 +7,20 @@ import maze.game.Cell;
 import maze.game.Configurations;
 import maze.game.Screen;
 
-public class MazeCreator_Recursive_Backtracking {
+public class Recursive_Backtracking {
+	
+//    1.Given a current cell as a parameter,
+//    2.Mark the current cell as visited
+//    3.While the current cell has any unvisited neighbour cells
+//        1.Chose one of the unvisited neighbours
+//        2.Remove the wall between the current cell and the chosen cell
+//        3.Invoke the routine recursively for a chosen cell
 
 	private Cell[][] maze;
 	private Screen screen;
 	private int W, H, S;
-	private final Color visitedcell_color = Color.lightGray;
-	private final Color visitingcell_color = Color.yellow;
 
-	public MazeCreator_Recursive_Backtracking(Configurations conf) {
+	public Recursive_Backtracking(Configurations conf) {
 		this.W = conf.W;
 		this.H = conf.H;
 		this.S = conf.S;
@@ -33,21 +37,18 @@ public class MazeCreator_Recursive_Backtracking {
 		if (current_cell.hasAnyUnvisitedNeighbourCell(maze)) {
 			visitNeighbour(current_cell);
 		}
-		current_cell.color = visitedcell_color;
-		screen.update_screen(maze, current_cell);
+		current_cell.color = Configurations.visitedcell_color;
+		screen.update_screen(maze,current_cell,true);
 	}
 
 	private void makeCellVisited(Cell cell) {
 		if (screen != null) {
 			//screen.setCurrent(cell);
-			cell.color = visitingcell_color;
-			screen.update_screen(maze,cell);
+			cell.color = Configurations.visitingcell_color;
+			screen.update_screen(maze,cell,true);
 		}
 		if (maze[cell.xcord][cell.ycord] == null) {
 			maze[cell.xcord][cell.ycord] = cell;
-		}
-		if (maze[cell.xcord][cell.ycord].visited) {
-			return;
 		}
 		maze[cell.xcord][cell.ycord].visited = true;
 	}
@@ -64,8 +65,6 @@ public class MazeCreator_Recursive_Backtracking {
 			}
 			neighbour = removeWall(current_cell, neighbour);
 			Traverse(neighbour);
-			// screen.setCurrent(current_cell);
-			
 		}
 	}
 
