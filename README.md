@@ -21,5 +21,4 @@ Also I used Eclipse IDE for the development.
 * Arrow Keys (UP,DOWN,LEFT,RIGHT)
   * Speed Up/Down Maze Generation (During Maze Generation)
   * Move Box (Play)- After Maze is Generated
-* G - Show Grid
 * ESC - Exit The Game Anytime
